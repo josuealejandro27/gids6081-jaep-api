@@ -1,0 +1,23 @@
+import { IsBoolean, IsNotEmpty, IsString, MaxLength, MinLength } from "class-validator";
+
+export class CreateTaskDto {
+
+    @IsString()
+    @IsNotEmpty()
+    @MinLength(3)
+    @MaxLength(100)
+    name!: string;
+
+    @IsString()
+    @IsNotEmpty({ message: 'El campo es requerido' })
+    @MinLength(3)
+    @MaxLength(250)
+    description!: string;
+
+    @IsNotEmpty()
+    @IsBoolean()
+    priority!: boolean;
+
+    // user_id ya no viene del body, viene del token JWT
+    user_id?: number;
+}

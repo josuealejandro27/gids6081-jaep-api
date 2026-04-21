@@ -61,3 +61,5 @@ bootstrap();
 //! git commit -m "bug: correccion de inicio de sesion y configuracion de rutas (me/logout, refresh)"
 
 //! git commit -m "fix: Uso de custom errors y creacion de logs"|
+
+git commit -a -m "feat: Implementacion completa del sistema con base de datos, autenticacion y mejoras estructurales - Configuracion de conexion a base de datos (MySQL/PostgreSQL) mediante providers- Integracion de Prisma y correccion del CRUD de tareas- Implementacion de CRUD completo para usuarios- Desarrollo de sistema de autenticacion (login, logout, refresh, proteccion de rutas)- Encriptacion de contraseñas con bcrypt- Configuracion e integracion de Swagger para documentacion de la API- Correccion de estructura de objetos en el proyecto- Implementacion de manejo de errores personalizados (custom errors)- Creacion de sistema de logs- Ajustes y correcciones generales en el flujo de autenticacion y rutas"

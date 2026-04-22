@@ -52,10 +52,16 @@ export class UserService {
     }
 
     public async insertUser(user: CreateUserDto): Promise<Partial<User>> {
+    try {
         const created = await this.prisma.user.create({ data: user });
         const { password, ...safeUser } = created;
         return safeUser;
+    } catch (error: any) {
+        if (error.code === 'P2002')
+            throw new BadRequestException(`El username '${user.username}' ya está registrado`);
+        throw error;
     }
+}
 
     public async deleteUser(id: number): Promise<void> {
         const user = await this.prisma.user.findUnique({

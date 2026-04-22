@@ -35,9 +35,15 @@ export class UserController {
         return await this.userSvc.getUserById(id);
     }
 
-    // Registro público (sin autenticación)
+    // Solo admin puede registrar nuevos usuarios
     @Post()
-    public async insertUser(@Body() user: CreateUserDto): Promise<Partial<User>> {
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles('admin')
+    public async insertUser(@Body() user: CreateUserDto, @Req() req: any): Promise<Partial<User>> {
+        const sessionUser = req['user'];
+        if (user['role'] === 'admin' && sessionUser.role !== 'admin')
+            throw new ForbiddenException('Solo un admin puede crear otro admin');
+
         const encryptedPassword = await this.utilSvc.hash(user.password);
         user.password = encryptedPassword;
         return await this.userSvc.insertUser(user);

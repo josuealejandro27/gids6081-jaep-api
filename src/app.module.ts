@@ -3,12 +3,13 @@ import { AuthModule } from './modules/auth/interfaces/auth.module';
 import { TaskModule } from './modules/tasks/interfaces/task.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UserModule } from './modules/user/interfaces/user.module';
-import { UtilService } from './common/services/util.service';
 import { JwtModule } from '@nestjs/jwt';
 import { LogsModule } from './modules/logs/interfaces/logs.module';
+import { CommonModule } from './common/common.module';
 
 @Module({
     imports: [
+        CommonModule,
         AuthModule,
         TaskModule,
         UserModule,
@@ -24,6 +25,6 @@ import { LogsModule } from './modules/logs/interfaces/logs.module';
         })
     ],
     controllers: [],
-    providers: [UtilService],
+    providers: [],
 })
 export class AppModule {}

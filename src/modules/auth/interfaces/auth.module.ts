@@ -4,10 +4,10 @@ import { AuthService } from "./auth.service";
 import { PrismaService } from "src/common/services/prisma.service";
 import { UtilService } from "src/common/services/util.service";
 import { LogService } from "src/common/services/log.service";
+import { TokenBlacklistService } from "src/common/services/token-blacklist.service";
 
 @Module({
-    imports: [],
     controllers: [AuthController],
-    providers: [AuthService, PrismaService, UtilService, LogService],
+    providers: [AuthService, PrismaService, UtilService, LogService, TokenBlacklistService]
 })
 export class AuthModule {}

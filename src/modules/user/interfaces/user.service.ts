@@ -22,9 +22,7 @@ export class UserService {
                 username: true,
                 role: true,
                 created_at: true,
-                // password y hash NO se exponen
-                password: false,
-                hash: false
+                password: false
             }
         });
     }
@@ -39,23 +37,24 @@ export class UserService {
                 username: true,
                 role: true,
                 created_at: true,
-                password: false,
-                hash: false
+                password: false
             }
         });
     }
 
-    public async updateUser(id: number, userUpdated: UpdateUserDto): Promise<User> {
-        return await this.prisma.user.update({
+    public async updateUser(id: number, userUpdated: UpdateUserDto): Promise<Partial<User>> {
+        const updated = await this.prisma.user.update({
             where: { id },
             data: userUpdated
         });
+        const { password, ...safeUser } = updated;
+        return safeUser;
     }
 
-    public async insertUser(user: CreateUserDto): Promise<User> {
-        return await this.prisma.user.create({
-            data: user
-        });
+    public async insertUser(user: CreateUserDto): Promise<Partial<User>> {
+        const created = await this.prisma.user.create({ data: user });
+        const { password, ...safeUser } = created;
+        return safeUser;
     }
 
     public async deleteUser(id: number): Promise<void> {

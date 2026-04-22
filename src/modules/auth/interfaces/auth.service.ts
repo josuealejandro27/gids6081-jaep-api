@@ -1,6 +1,5 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "src/common/services/prisma.service";
-import { User } from "src/modules/user/entities/user.entity";
 import { LogService } from "src/common/services/log.service";
 
 @Injectable()
@@ -11,26 +10,14 @@ export class AuthService {
         private readonly logSvc: LogService
     ) {}
 
-    public async getUserByUsername(username: string): Promise<User | null> {
-        return await this.prisma.user.findFirst({
-            where: { username }
-        });
+    public async getUserByUsername(username: string): Promise<any> {
+        return await this.prisma.user.findFirst({ where: { username } });
     }
 
-    public async getUserById(id: number): Promise<User | null> {
-        return await this.prisma.user.findFirst({
-            where: { id }
-        });
+    public async getUserById(id: number): Promise<any> {
+        return await this.prisma.user.findFirst({ where: { id } });
     }
 
-    public async updateHash(user_id: number, hash: string | null): Promise<User> {
-        return await this.prisma.user.update({
-            where: { id: user_id },
-            data: { hash }
-        });
-    }
-
-    // Log de login fallido
     public async logFailedLogin(username: string, path: string) {
         await this.logSvc.write({
             statusCode: 401,
@@ -41,7 +28,6 @@ export class AuthService {
         });
     }
 
-    // Log de login exitoso
     public async logSuccessLogin(userId: number, path: string) {
         await this.logSvc.write({
             statusCode: 200,
@@ -52,7 +38,6 @@ export class AuthService {
         });
     }
 
-    // Log de logout
     public async logLogout(userId: number, path: string) {
         await this.logSvc.write({
             statusCode: 200,

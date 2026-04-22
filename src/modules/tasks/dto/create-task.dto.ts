@@ -4,20 +4,19 @@ export class CreateTaskDto {
 
     @IsString()
     @IsNotEmpty()
-    @MinLength(3)
-    @MaxLength(100)
-    name!: string;
+    @MinLength(3, { message: 'El nombre debe tener al menos 3 caracteres' })
+    @MaxLength(100, { message: 'El nombre no puede exceder 100 caracteres' })
+    name: string;
 
     @IsString()
-    @IsNotEmpty({ message: 'El campo es requerido' })
-    @MinLength(3)
-    @MaxLength(250)
-    description!: string;
+    @IsNotEmpty({ message: 'La descripción es requerida' })
+    @MinLength(3, { message: 'La descripción debe tener al menos 3 caracteres' })
+    @MaxLength(250, { message: 'La descripción no puede exceder 250 caracteres' })
+    description: string;
 
     @IsNotEmpty()
     @IsBoolean()
-    priority!: boolean;
+    priority: boolean;
 
-    // user_id ya no viene del body, viene del token JWT
-    user_id?: number;
+    user_id: number;
 }

@@ -11,6 +11,14 @@ async function bootstrap() {
     whitelist: true
   })) //ya se tiene el validation pipe de forma global para todo el proyecto
 
+  // CORS para Angular
+    app.enableCors({
+        origin: 'http://localhost:4200',
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+        credentials: true
+    });
+
   //Uso de filtros globales 
   app.useGlobalFilters(new AllExceptionfilter)
 

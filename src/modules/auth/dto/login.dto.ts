@@ -5,7 +5,7 @@ export class LoginDto {
     @IsNotEmpty()
     @IsString()
     @MinLength(3, { message: 'El username debe tener al menos 3 caracteres' })
-    @MaxLength(50, { message: 'El username no puede exceder 50 caracteres' })
+    @MaxLength(30, { message: 'El username no puede exceder 30 caracteres' })
     username: string;
 
     @IsNotEmpty()

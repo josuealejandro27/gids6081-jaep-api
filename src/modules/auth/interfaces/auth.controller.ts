@@ -45,8 +45,12 @@ export class AuthController {
 
     @Get("/me")
     @UseGuards(AuthGuard)
-    public getProfile(@Req() request: any) {
-        return request['user'];
+    public async getProfile(@Req() request: any) {
+        const sessionUser = request['user'];
+        const user = await this.authSvc.getUserById(sessionUser.id);
+        if (!user) throw new UnauthorizedException('Usuario no encontrado');
+        const { password, ...safeUser } = user;
+        return safeUser;
     }
 
     @Post("/refresh")

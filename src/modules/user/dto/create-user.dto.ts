@@ -6,18 +6,21 @@ export class CreateUserDto {
     @IsNotEmpty()
     @MinLength(3, { message: 'El nombre debe tener al menos 3 caracteres' })
     @MaxLength(100, { message: 'El nombre no puede exceder 100 caracteres' })
+    @Matches(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/, { message: 'El nombre solo puede contener letras' })
     name: string;
 
     @IsString()
     @IsNotEmpty()
     @MinLength(3, { message: 'El apellido debe tener al menos 3 caracteres' })
     @MaxLength(100, { message: 'El apellido no puede exceder 100 caracteres' })
+    @Matches(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/, { message: 'El apellido solo puede contener letras' })
     lastname: string;
 
     @IsString()
     @IsNotEmpty()
     @MinLength(3, { message: 'El username debe tener al menos 3 caracteres' })
-    @MaxLength(50, { message: 'El username no puede exceder 50 caracteres' })
+    @MaxLength(30, { message: 'El username no puede exceder 30 caracteres' })
+    @Matches(/^\S+$/, { message: 'El username no puede contener espacios' })
     username: string;
 
     @IsString()

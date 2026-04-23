@@ -3,21 +3,24 @@ import { IsOptional, IsString, Matches, MaxLength, MinLength } from "class-valid
 export class UpdateUserDto {
 
     @IsOptional()
-    @IsString()
+    @IsString({ message: 'El nombre debe ser un texto' })
     @MinLength(3, { message: 'El nombre debe tener al menos 3 caracteres' })
     @MaxLength(100, { message: 'El nombre no puede exceder 100 caracteres' })
+    @Matches(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/, { message: 'El nombre solo puede contener letras' })
     name?: string;
 
     @IsOptional()
-    @IsString()
+    @IsString({ message: 'El apellido debe ser un texto' })
     @MinLength(3, { message: 'El apellido debe tener al menos 3 caracteres' })
     @MaxLength(100, { message: 'El apellido no puede exceder 100 caracteres' })
+    @Matches(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/, { message: 'El apellido solo puede contener letras' })
     lastname?: string;
 
     @IsOptional()
-    @IsString()
+    @IsString({ message: 'El username debe ser un texto' })
     @MinLength(3, { message: 'El username debe tener al menos 3 caracteres' })
-    @MaxLength(50, { message: 'El username no puede exceder 50 caracteres' })
+    @MaxLength(30, { message: 'El username no puede exceder 30 caracteres' })
+    @Matches(/^\S+$/, { message: 'El username no puede contener espacios' })
     username?: string;
 
     @IsOptional()
@@ -28,4 +31,8 @@ export class UpdateUserDto {
         message: 'La contraseña debe tener mayúscula, minúscula, número y carácter especial'
     })
     password?: string;
+
+    @IsOptional()
+    @IsString()
+    role?: string;
 }

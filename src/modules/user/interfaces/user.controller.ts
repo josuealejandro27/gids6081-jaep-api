@@ -35,6 +35,16 @@ export class UserController {
         return await this.userSvc.getUserById(id);
     }
 
+    // Registro público — sin autenticación, solo crea usuarios con rol 'user'
+    @Post('/register')
+    public async registerPublic(@Body() user: CreateUserDto): Promise<Partial<User>> {
+        // Forzar rol 'user' siempre, sin importar lo que venga en el body
+        user.role = 'user';
+        const encryptedPassword = await this.utilSvc.hash(user.password);
+        user.password = encryptedPassword;
+        return await this.userSvc.insertUser(user);
+    }
+
     // Solo admin puede registrar nuevos usuarios
     @Post()
     @UseGuards(AuthGuard, RolesGuard)
